@@ -9,6 +9,7 @@ from src.core.game_state import GameState
 from src.core.file_system import FileSystem
 from src.missions.mission_manager import MissionManager
 from src.hacking.interface import HackingInterface
+from src.store.interface import StoreInterface
 
 def main():
     """Main game loop."""
@@ -31,6 +32,9 @@ def main():
     
     # Initialize hacking interface
     hacking_interface = HackingInterface(game_state.player, ui)
+    
+    # Initialize store interface
+    store_interface = StoreInterface(game_state.player, ui)
     
     while not game_state.is_game_over:
         # Display status bar
@@ -112,6 +116,9 @@ def main():
                 ui.display_info(f"Trace Level: {mission_status['trace_level']}%")
             else:
                 ui.display_info("No active mission.")
+        elif command.lower() == "store":
+            # Enter store mode
+            store_interface.start()
         else:
             ui.display_error(f"Command not recognized: {command}")
         
