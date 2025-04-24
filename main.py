@@ -8,6 +8,7 @@ from src.ui.terminal import TerminalUI
 from src.core.game_state import GameState
 from src.core.file_system import FileSystem
 from src.missions.mission_manager import MissionManager
+from src.hacking.interface import HackingInterface
 
 def main():
     """Main game loop."""
@@ -27,6 +28,9 @@ def main():
     # Initialize mission manager
     mission_manager = MissionManager(game_state.player, file_system)
     mission_manager.refresh_available_missions()
+    
+    # Initialize hacking interface
+    hacking_interface = HackingInterface(game_state.player, ui)
     
     while not game_state.is_game_over:
         # Display status bar
@@ -66,6 +70,7 @@ def main():
                 ui.display_info("Available Missions:")
                 for mission in missions:
                     ui.display_info(f"\n{mission['name']}")
+                    ui.display_info(f"ID: {mission['id']}")
                     ui.display_info(f"Target: {mission['target']}")
                     ui.display_info(f"Difficulty: {mission['difficulty']}")
                     ui.display_info(f"Rewards: {mission['rewards']['credits']} credits, {mission['rewards']['experience']} XP")
@@ -80,6 +85,23 @@ def main():
                 ui.display_info(f"\nMission: {mission_status['name']}")
                 ui.display_info(f"Target: {mission_status['target']}")
                 ui.display_info(f"Description: {mission_status['description']}")
+                
+                # Start hacking interface
+                hacking_interface.start_hacking(mission_status['difficulty'])
+                
+                # Enter hacking mode
+                while True:
+                    hack_command = ui.display_prompt()
+                    if not hacking_interface.handle_command(hack_command):
+                        break
+                
+                # Complete mission if hacking was successful
+                if hacking_interface.simulation and hacking_interface.simulation.is_complete():
+                    mission_manager.complete_mission(True)
+                    ui.display_success("Mission completed successfully!")
+                else:
+                    mission_manager.complete_mission(False)
+                    ui.display_error("Mission failed!")
             else:
                 ui.display_error("Failed to start mission. Check requirements.")
         elif command.lower() == "status":
