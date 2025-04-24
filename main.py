@@ -5,22 +5,28 @@ Terminal Hacker RPG - Main Game File
 
 import os
 from src.ui.terminal import TerminalUI
+from src.core.game_state import GameState
+from src.core.file_system import FileSystem
 
 def main():
     """Main game loop."""
     ui = TerminalUI()
+    game_state = GameState()
+    file_system = FileSystem()
+    
+    # Display welcome screen
     ui.display_welcome()
     
-    # Initial game state
-    game_state = {
-        "credits": 100,
-        "level": 1,
-        "trace": 0
-    }
+    # Initialize new game
+    player_name = ui.display_prompt().strip()
+    if not player_name:
+        player_name = "h4ck3r"
+    game_state.initialize_new_game(player_name)
     
-    while True:
+    while not game_state.is_game_over:
         # Display status bar
-        ui.display_status_bar(game_state)
+        player_status = game_state.get_player_status()
+        ui.display_status_bar(player_status)
         
         # Get command from user
         command = ui.display_prompt()
@@ -31,19 +37,28 @@ def main():
         elif command.lower() == "help":
             ui.display_help()
         elif command.lower() == "ls":
-            # Example file list
-            files = [
-                {"name": "readme.txt", "size": "1.2KB", "type": "text"},
-                {"name": "config.dat", "size": "4.5KB", "type": "data"},
-                {"name": "logs/", "size": "0B", "type": "dir"}
-            ]
+            files = file_system.list_directory()
             ui.display_file_list(files)
-        elif command.lower() == "cat readme.txt":
-            ui.display_file_content("Welcome to the Terminal Hacker RPG!\n\nThis is a cyberpunk-themed game where you play as a hacker.")
+        elif command.lower().startswith("cd "):
+            path = command[3:].strip()
+            if file_system.change_directory(path):
+                ui.display_success(f"Changed directory to {file_system.get_current_path()}")
+            else:
+                ui.display_error(f"Directory not found: {path}")
+        elif command.lower().startswith("cat "):
+            path = command[4:].strip()
+            content = file_system.read_file(path)
+            if content is not None:
+                ui.display_file_content(content)
+            else:
+                ui.display_error(f"File not found: {path}")
         elif command.lower() == "bank":
-            ui.display_info(f"Current balance: {game_state['credits']} credits")
+            ui.display_info(f"Current balance: {player_status['credits']} credits")
         else:
             ui.display_error(f"Command not recognized: {command}")
+        
+        # Advance game time
+        game_state.advance_time()
 
 if __name__ == "__main__":
     main() 
