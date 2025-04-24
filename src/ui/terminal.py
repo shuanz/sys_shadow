@@ -37,10 +37,8 @@ class TerminalUI:
     
     def display_prompt(self):
         """Display the command prompt."""
-        return Prompt.ask(
-            "\nh4ck3r@voidnet:~$",
-            style=self.prompt_style
-        )
+        self.console.print("\nh4ck3r@voidnet:~$", style=self.prompt_style, end="")
+        return input()
     
     def display_error(self, message: str):
         """Display an error message."""
