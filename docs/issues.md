@@ -23,4 +23,30 @@ Implementar o sistema bancário do jogo com suporte a criptomoeda (cybit) e reco
 ✅ Concluído
 
 ### Data de Conclusão
+2024-03-19
+
+## Issue #7 - Integração com LLM
+
+### Descrição
+Implementar integração com Language Learning Models para diálogos dinâmicos com NPCs.
+
+### Requisitos
+- [x] Interface com LLM para geração de diálogos
+- [x] Suporte a modelos locais e via API
+- [x] Geração de diálogos para missões
+- [x] Respostas dinâmicas de NPCs
+- [x] Histórico de conversas
+- [x] Persistência de diálogos
+
+### Implementação
+- Criado módulo `src/core/llm_interface.py` para gerenciar integração com LLM
+- Implementado sistema de geração de diálogos
+- Adicionado suporte a diferentes tipos de LLM
+- Integrado com sistema de missões para diálogos dinâmicos
+- Adicionado persistência de conversas em `conversation_history.json`
+
+### Status
+✅ Concluído
+
+### Data de Conclusão
 2024-03-19 
