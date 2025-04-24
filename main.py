@@ -7,6 +7,7 @@ import os
 from src.ui.terminal import TerminalUI
 from src.core.game_state import GameState
 from src.core.file_system import FileSystem
+from src.missions.mission_manager import MissionManager
 
 def main():
     """Main game loop."""
@@ -22,6 +23,10 @@ def main():
     if not player_name:
         player_name = "h4ck3r"
     game_state.initialize_new_game(player_name)
+    
+    # Initialize mission manager
+    mission_manager = MissionManager(game_state.player, file_system)
+    mission_manager.refresh_available_missions()
     
     while not game_state.is_game_over:
         # Display status bar
@@ -54,6 +59,37 @@ def main():
                 ui.display_error(f"File not found: {path}")
         elif command.lower() == "bank":
             ui.display_info(f"Current balance: {player_status['credits']} credits")
+        elif command.lower() == "missions":
+            # Display available missions
+            missions = mission_manager.get_available_missions()
+            if missions:
+                ui.display_info("Available Missions:")
+                for mission in missions:
+                    ui.display_info(f"\n{mission['name']}")
+                    ui.display_info(f"Target: {mission['target']}")
+                    ui.display_info(f"Difficulty: {mission['difficulty']}")
+                    ui.display_info(f"Rewards: {mission['rewards']['credits']} credits, {mission['rewards']['experience']} XP")
+                    ui.display_info(f"Required Skills: {', '.join(f'{k} {v}' for k, v in mission['required_skills'].items())}")
+            else:
+                ui.display_info("No missions available. Check back later.")
+        elif command.lower().startswith("accept "):
+            mission_id = command[7:].strip()
+            if mission_manager.start_mission(mission_id):
+                ui.display_success("Mission accepted!")
+                mission_status = mission_manager.get_mission_status()
+                ui.display_info(f"\nMission: {mission_status['name']}")
+                ui.display_info(f"Target: {mission_status['target']}")
+                ui.display_info(f"Description: {mission_status['description']}")
+            else:
+                ui.display_error("Failed to start mission. Check requirements.")
+        elif command.lower() == "status":
+            mission_status = mission_manager.get_mission_status()
+            if mission_status:
+                ui.display_info(f"\nCurrent Mission: {mission_status['name']}")
+                ui.display_info(f"Progress: Step {mission_status['current_step']}")
+                ui.display_info(f"Trace Level: {mission_status['trace_level']}%")
+            else:
+                ui.display_info("No active mission.")
         else:
             ui.display_error(f"Command not recognized: {command}")
         
