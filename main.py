@@ -11,6 +11,7 @@ from src.missions.mission_manager import MissionManager
 from src.hacking.interface import HackingInterface
 from src.store.interface import StoreInterface
 from src.core.skill_training import SkillTraining
+from src.core.bank import Bank
 
 def main():
     """Main game loop."""
@@ -39,6 +40,9 @@ def main():
     
     # Initialize skill training
     skill_training = SkillTraining(game_state.player)
+    
+    # Initialize bank
+    bank = Bank(game_state.player)
     
     while not game_state.is_game_over:
         # Display status bar
@@ -70,7 +74,22 @@ def main():
             else:
                 ui.display_error(f"File not found: {path}")
         elif command.lower() == "bank":
-            ui.display_info(f"Current balance: {player_status['credits']} credits")
+            balance = bank.get_balance()
+            ui.display_info(f"\nCurrent Balance:")
+            ui.display_info(f"Credits: {balance['credits']}")
+            ui.display_info(f"Cybit: {balance['cybit']:.2f}")
+            ui.display_info(f"Last Updated: {balance['last_updated']}")
+            
+            # Show recent transactions
+            transactions = bank.get_transaction_history(5)
+            if transactions:
+                ui.display_info("\nRecent Transactions:")
+                for tx in transactions:
+                    ui.display_info(f"\n{tx['timestamp']}")
+                    ui.display_info(f"Type: {tx['type']}")
+                    ui.display_info(f"Amount: {tx['amount']} credits")
+                    ui.display_info(f"Source: {tx['source']}")
+                    ui.display_info(f"Balance: {tx['balance_after']} credits")
         elif command.lower() == "missions":
             # Display available missions
             missions = mission_manager.get_available_missions()
@@ -107,6 +126,8 @@ def main():
                 if hacking_interface.simulation and hacking_interface.simulation.is_complete():
                     mission_manager.complete_mission(True)
                     ui.display_success("Mission completed successfully!")
+                    # Process mission rewards
+                    bank.process_mission_reward(mission_status)
                 else:
                     mission_manager.complete_mission(False)
                     ui.display_error("Mission failed!")
