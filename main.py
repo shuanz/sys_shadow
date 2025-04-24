@@ -4,46 +4,46 @@ Terminal Hacker RPG - Main Game File
 """
 
 import os
-from rich.console import Console
-from rich.prompt import Prompt
-from rich.panel import Panel
-
-console = Console()
-
-def display_welcome():
-    """Display the welcome screen."""
-    console.print(Panel.fit(
-        "[bold green]Terminal Hacker RPG[/bold green]\n"
-        "Welcome to the cyberpunk world of hacking!",
-        title="Welcome",
-        border_style="green"
-    ))
+from src.ui.terminal import TerminalUI
 
 def main():
     """Main game loop."""
-    display_welcome()
+    ui = TerminalUI()
+    ui.display_welcome()
+    
+    # Initial game state
+    game_state = {
+        "credits": 100,
+        "level": 1,
+        "trace": 0
+    }
     
     while True:
-        command = Prompt.ask("\nh4ck3r@voidnet:~$")
+        # Display status bar
+        ui.display_status_bar(game_state)
+        
+        # Get command from user
+        command = ui.display_prompt()
         
         if command.lower() == "exit":
-            console.print("[yellow]Logging out...[/yellow]")
+            ui.display_info("Logging out...")
             break
         elif command.lower() == "help":
-            console.print("""
-Available commands:
-- ls: List files
-- cd: Change directory
-- cat: View file contents
-- mail: Check messages
-- bank: Check balance
-- hack: Start hacking
-- store: Access store
-- help: Show this help
-- exit: Quit game
-            """)
+            ui.display_help()
+        elif command.lower() == "ls":
+            # Example file list
+            files = [
+                {"name": "readme.txt", "size": "1.2KB", "type": "text"},
+                {"name": "config.dat", "size": "4.5KB", "type": "data"},
+                {"name": "logs/", "size": "0B", "type": "dir"}
+            ]
+            ui.display_file_list(files)
+        elif command.lower() == "cat readme.txt":
+            ui.display_file_content("Welcome to the Terminal Hacker RPG!\n\nThis is a cyberpunk-themed game where you play as a hacker.")
+        elif command.lower() == "bank":
+            ui.display_info(f"Current balance: {game_state['credits']} credits")
         else:
-            console.print(f"[red]Command not recognized: {command}[/red]")
+            ui.display_error(f"Command not recognized: {command}")
 
 if __name__ == "__main__":
     main() 
