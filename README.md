@@ -1,66 +1,74 @@
 # Terminal Hacker RPG
 
-Um jogo de RPG cyberpunk jogável inteiramente através do terminal, onde você assume o papel de um hacker contratado para realizar invasões em sistemas de megacorporações.
+A cyberpunk terminal-based RPG game where players hack into corporate systems. Built with Python and modern terminal UI libraries.
 
-## 🎮 Sobre o Jogo
+## 🎮 Features
 
-Terminal Hacker RPG é um jogo de RPG ambientado em um mundo cyberpunk, inteiramente jogável através de um terminal estilizado. O jogador assume o papel de um hacker contratado anonimamente para realizar invasões em sistemas de megacorporações, com narrativa e sistemas gerados de forma procedural.
+- Terminal-based interface with cyberpunk aesthetics
+- Procedurally generated missions and systems
+- Hacking simulation with multiple stages
+- In-game store for hacking tools
+- Cryptocurrency-based economy
+- Dynamic NPC interactions
 
-### 🎯 Características Principais
+## 🚀 Getting Started
 
-- Interface 100% baseada em terminal estilo Linux
-- Sistema de comandos inspirado em Linux
-- Missões geradas proceduralmente
-- Sistema de invasão de sistemas
-- Loja de programas e ferramentas
-- Sistema de recompensas em criptomoeda
+### Prerequisites
 
-## 🚀 Instalação
+- Python 3.8+
+- pip (Python package manager)
 
-1. Clone o repositório:
+### Installation
+
+1. Clone the repository:
 ```bash
-git clone https://github.com/seu-usuario/terminal-hacker-rpg.git
-cd terminal-hacker-rpg
+git clone https://github.com/shuanz/sys_shadow.git
+cd sys_shadow
 ```
 
-2. Instale as dependências:
+2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Execute o jogo:
+4. Run the game:
 ```bash
 python main.py
 ```
 
-## 🎮 Como Jogar
+## 🛠️ Development
 
-O jogo utiliza comandos similares ao Linux:
+### Project Structure
 
-- `ls`, `cd`, `cat` — exploração de arquivos
-- `mail` — mensageiro com contratante
-- `bank` — consultar saldo em cripto
-- `hack` — iniciar invasão
-- `store` — acessar loja de programas
-- `help` — mostrar ajuda
+```
+sys_shadow/
+├── src/
+│   ├── core/           # Core game mechanics
+│   ├── ui/             # Terminal UI components
+│   ├── missions/       # Mission generation and management
+│   ├── hacking/        # Hacking simulation
+│   └── store/          # In-game store system
+├── tests/              # Test files
+├── data/               # Game data and assets
+└── docs/               # Documentation
+```
 
-## 🛠️ Tecnologias Utilizadas
+### Running Tests
 
-- Python
-- Rich (Terminal UI)
-- SQLite (Banco de dados)
-- GPT API (opcional, para diálogos dinâmicos)
+```bash
+pytest
+```
 
-## 📝 Licença
+## 📝 License
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-Contribuições são bem-vindas! Por favor, leia o arquivo [CONTRIBUTING.md](CONTRIBUTING.md) para detalhes sobre nosso código de conduta e o processo para enviar pull requests.
-
-## 📫 Contato
-
-Seu Nome - [@seu_twitter](https://twitter.com/seu_twitter)
-
-Link do Projeto: [https://github.com/seu-usuario/terminal-hacker-rpg](https://github.com/seu-usuario/terminal-hacker-rpg) 
+Contributions are welcome! Please feel free to submit a Pull Request. 
