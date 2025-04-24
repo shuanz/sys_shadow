@@ -66,6 +66,11 @@ class TerminalUI:
             ("bank", "Check balance"),
             ("hack", "Start hacking"),
             ("store", "Access store"),
+            ("train", "View available training"),
+            ("train <skill>", "Train a specific skill"),
+            ("missions", "View available missions"),
+            ("accept <id>", "Accept a mission"),
+            ("status", "Check mission status"),
             ("help", "Show this help"),
             ("exit", "Quit game")
         ]

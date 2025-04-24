@@ -10,6 +10,7 @@ from src.core.file_system import FileSystem
 from src.missions.mission_manager import MissionManager
 from src.hacking.interface import HackingInterface
 from src.store.interface import StoreInterface
+from src.core.skill_training import SkillTraining
 
 def main():
     """Main game loop."""
@@ -35,6 +36,9 @@ def main():
     
     # Initialize store interface
     store_interface = StoreInterface(game_state.player, ui)
+    
+    # Initialize skill training
+    skill_training = SkillTraining(game_state.player)
     
     while not game_state.is_game_over:
         # Display status bar
@@ -119,6 +123,25 @@ def main():
         elif command.lower() == "store":
             # Enter store mode
             store_interface.start()
+        elif command.lower() == "train":
+            # Display available training options
+            training_options = skill_training.get_available_training()
+            ui.display_info("\nAvailable Training:")
+            for option in training_options:
+                ui.display_info(f"\n{option['skill'].title()}")
+                ui.display_info(f"Current Level: {option['current_level']}")
+                ui.display_info(f"Cost: {option['cost']} credits")
+                ui.display_info(f"Experience: {option['experience']} XP")
+        elif command.lower().startswith("train "):
+            skill = command[6:].strip().lower()
+            if skill_training.train_skill(skill):
+                ui.display_success(f"Successfully trained {skill}!")
+                progress = skill_training.get_training_progress(skill)
+                ui.display_info(f"New level: {progress['current_level']}")
+                ui.display_info(f"Next level cost: {progress['next_level_cost']} credits")
+                ui.display_info(f"Success chance: {progress['success_chance']*100:.1f}%")
+            else:
+                ui.display_error(f"Failed to train {skill}. Check your credits and try again.")
         else:
             ui.display_error(f"Command not recognized: {command}")
         
