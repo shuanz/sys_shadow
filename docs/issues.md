@@ -46,7 +46,7 @@ Implementar integração com Language Learning Models para diálogos dinâmicos 
 - Adicionado persistência de conversas em `conversation_history.json`
 
 ### Status
-✅ Concluído
+🔒 Fechada
 
 ### Data de Conclusão
 2024-03-19 
