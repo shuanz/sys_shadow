@@ -49,4 +49,31 @@ Implementar integração com Language Learning Models para diálogos dinâmicos 
 🔒 Fechada
 
 ### Data de Conclusão
+2024-03-19
+
+## Issue #8 - Sistema de Rastreio e Exposição
+
+### Descrição
+Implementar sistema de rastreio e exposição para ações do jogador.
+
+### Requisitos
+- [x] Sistema de níveis de rastreio
+- [x] Sistema de exposição baseado no rastreio
+- [x] Histórico de eventos de rastreio
+- [x] Cálculo de risco para ações
+- [x] Persistência de dados de rastreio
+- [x] Integração com sistema de habilidades
+
+### Implementação
+- Criado módulo `src/core/trace_system.py` para gerenciar rastreio e exposição
+- Implementado sistema de níveis de rastreio (0-100)
+- Adicionado sistema de exposição com níveis (50%, 75%, 100%)
+- Implementado cálculo de risco baseado em habilidades
+- Adicionado persistência de dados em `trace_history.json`
+- Integrado com sistema de habilidades do jogador
+
+### Status
+✅ Concluído
+
+### Data de Conclusão
 2024-03-19 
