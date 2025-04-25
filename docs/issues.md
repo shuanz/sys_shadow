@@ -130,4 +130,31 @@ Implementar sistema de multi-terminal com suporte a sessões remotas.
 ✅ Concluído
 
 ### Data de Conclusão
+2024-03-19
+
+## Issue #18 - Multiplayer Local/LAN
+
+### Descrição
+Implementar sistema de multiplayer para jogabilidade local e em rede.
+
+### Requisitos
+- [x] Sistema de servidor multiplayer
+- [x] Suporte a conexões locais e LAN
+- [x] Gerenciamento de sessões de jogo
+- [x] Sistema de chat entre jogadores
+- [x] Sincronização de ações entre jogadores
+- [x] Persistência de dados multiplayer
+
+### Implementação
+- Criado módulo `src/core/multiplayer.py` para gerenciar funcionalidades multiplayer
+- Implementado servidor com suporte a múltiplos jogadores
+- Adicionado sistema de sessões de jogo
+- Implementado sistema de chat e mensagens
+- Adicionado persistência de dados em `multiplayer_data.json`
+- Integrado com sistema de ações do jogo
+
+### Status
+✅ Concluído
+
+### Data de Conclusão
 2024-03-19 
