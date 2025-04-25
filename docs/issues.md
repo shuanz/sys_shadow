@@ -103,4 +103,31 @@ Implementar sistema de facções e reputação para o jogador.
 ✅ Concluído
 
 ### Data de Conclusão
+2024-03-19
+
+## Issue #16 - Multi-terminal com Sessões Remotas
+
+### Descrição
+Implementar sistema de multi-terminal com suporte a sessões remotas.
+
+### Requisitos
+- [x] Sistema de múltiplas sessões de terminal
+- [x] Suporte a conexões remotas
+- [x] Gerenciamento de sessões ativas
+- [x] Histórico de conexões
+- [x] Persistência de dados de sessão
+- [x] Sistema de mensagens entre sessões
+
+### Implementação
+- Criado módulo `src/core/multi_terminal.py` para gerenciar sessões remotas
+- Implementado servidor de terminal com suporte a múltiplas conexões
+- Adicionado sistema de filas de mensagens para cada sessão
+- Implementado gerenciamento de conexões e desconexões
+- Adicionado persistência de dados em `session_data.json`
+- Integrado com sistema de mensagens entre terminais
+
+### Status
+✅ Concluído
+
+### Data de Conclusão
 2024-03-19 
