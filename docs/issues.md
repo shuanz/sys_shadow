@@ -76,4 +76,31 @@ Implementar sistema de rastreio e exposição para ações do jogador.
 ✅ Concluído
 
 ### Data de Conclusão
+2024-03-19
+
+## Issue #13 - Sistema de Facções e Reputação
+
+### Descrição
+Implementar sistema de facções e reputação para o jogador.
+
+### Requisitos
+- [x] Sistema de facções com diferentes níveis de reputação
+- [x] Missões específicas por facção
+- [x] Histórico de reputação
+- [x] Persistência de dados de facções
+- [x] Integração com sistema de missões
+- [x] Recompensas baseadas em reputação
+
+### Implementação
+- Criado módulo `src/core/faction_system.py` para gerenciar facções e reputação
+- Implementado sistema de reputação com níveis (Hostile, Unfriendly, Neutral, Friendly, Trusted Ally)
+- Adicionado três facções principais (Corporate Alliance, Underground Network, City Government)
+- Implementado sistema de missões baseado em reputação
+- Adicionado persistência de dados em `faction_data.json`
+- Integrado com sistema de missões e recompensas
+
+### Status
+✅ Concluído
+
+### Data de Conclusão
 2024-03-19 
